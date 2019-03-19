@@ -6,25 +6,39 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
+    public GameObject startUI;
     public GameObject pauseUI;
     public GameObject deathUI;
+
+    public Slider soundVolumeSlider;
+    public Slider musicVolumeSlider;
+
     public Text scoreText;
     public Image[] heartImages;
+
+    public GameObject messagePrefab;
 
     public AudioClip buttonSound;
     public AudioClip scoreSound;
     public AudioClip hurtSound;
 
     public void Start() {
+        // Set UI active
+        Time.timeScale = 0;
+        this.startUI.SetActive(true);
+        this.pauseUI.SetActive(false);
         this.deathUI.SetActive(false);
-        this.Pause();
+
+        // Load volume settings
+        this.soundVolumeSlider.value = FindObjectOfType<AudioManager>().GetSoundVolume();
+        this.musicVolumeSlider.value = FindObjectOfType<AudioManager>().GetMusicVolume();
     }
 
 	public void Update () {
-        // Resume game if mouse button was pressed
-        if (Input.GetMouseButtonDown(0)) {
-            this.GetComponent<AudioSource>().PlayOneShot(this.buttonSound);
-            this.Resume();
+        // Start game if mouse button was pressed
+        if (Input.GetMouseButtonDown(0) && this.startUI.activeInHierarchy) {
+            FindObjectOfType<AudioManager>().PlaySound(this.buttonSound);
+            this.StartGame();
         }
     }
 
@@ -45,13 +59,15 @@ public class GameController : MonoBehaviour {
     }
 
     public void OnDeath() {
-        SceneManager.LoadScene("HighScores");
-        //this.deathUI.SetActive(true);
+        this.deathUI.SetActive(true);
+
+        this.StartCoroutine("DeathWait");
     }
 
     public void OnScoreChange(int totalScore) {
         this.scoreText.text = "" + totalScore;
-        this.GetComponent<AudioSource>().PlayOneShot(this.scoreSound, 0.5f);
+
+        FindObjectOfType<AudioManager>().PlaySound(this.scoreSound, 0.5f);
     }
 
     public void OnLifeChange(int totalLife) {
@@ -59,10 +75,24 @@ public class GameController : MonoBehaviour {
         for (int i = 0; i < heartImages.Length; i++)
             heartImages[i].enabled = (i < totalLife);
 
-        this.GetComponent<AudioSource>().PlayOneShot(this.hurtSound, 2.0f);
+        FindObjectOfType<AudioManager>().PlaySound(this.hurtSound, 2.0f);
 
         if (totalLife == 0)
             this.OnDeath();
+    }
+
+    public void OnSoundVolumeSliderChange() {
+        FindObjectOfType<AudioManager>().SetSoundVolume(this.soundVolumeSlider.value);
+    }
+
+    public void OnMusicVolumeSliderChange() {
+        FindObjectOfType<AudioManager>().SetMusicVolume(this.musicVolumeSlider.value);
+    }
+
+    public void StartGame() {
+        Time.timeScale = 1;
+        this.startUI.SetActive(false);
+        this.Reset();
     }
 
     public void Pause() {
@@ -73,7 +103,18 @@ public class GameController : MonoBehaviour {
     public void Resume() {
         Time.timeScale = 1;
         this.pauseUI.SetActive(false);
-        this.deathUI.SetActive(false);
-        this.Reset();
     }
+
+    private IEnumerator DeathWait() {
+        yield return new WaitForSeconds(3);
+
+        // Load message with score
+        Message message = Instantiate(messagePrefab).GetComponent<Message>();
+        message.score = FindObjectOfType<Player>().GetScore();
+        DontDestroyOnLoad(message);
+
+        // Load scene
+        SceneManager.LoadScene("HighScores");
+    }
+
 }

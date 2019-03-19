@@ -49,6 +49,10 @@ public class Player : MonoBehaviour {
         return (this.currentLives <= 0);
     }
 
+    public int GetScore() {
+        return this.caughtDrops;
+    }
+
     public void Reset() {
         // Reset position
         this.transform.position = new Vector3(0, this.transform.position.y, 0);
