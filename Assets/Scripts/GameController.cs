@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -44,7 +45,8 @@ public class GameController : MonoBehaviour {
     }
 
     public void OnDeath() {
-        this.deathUI.SetActive(true);
+        SceneManager.LoadScene("HighScores");
+        //this.deathUI.SetActive(true);
     }
 
     public void OnScoreChange(int totalScore) {

@@ -11,7 +11,7 @@ public class MenuController : MonoBehaviour {
     }
 
     public void OnHighScoreButtonClick() {
-        // @TODO
+        SceneManager.LoadScene("HighScores");
     }
 
     public void OnQuitButtonClick() {
