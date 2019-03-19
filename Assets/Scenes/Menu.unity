@@ -233,19 +233,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 24384024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ab4e9c4eb0264229a60c3321b330938, type: 3}
+  m_Script: {fileID: 11500000, guid: 466a44edb87ee408096961983e7f2dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseUI: {fileID: 0}
-  deathUI: {fileID: 0}
-  scoreText: {fileID: 0}
-  heartImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  buttonSound: {fileID: 8300000, guid: bde4646d0dbc945da8ec74d8e3c058f0, type: 3}
-  scoreSound: {fileID: 8300000, guid: bb953564683c14a62b5efe6275f6fa62, type: 3}
-  hurtSound: {fileID: 8300000, guid: 18e7d6192356a4746a291f6c7df0b7d7, type: 3}
 --- !u!4 &24384027
 Transform:
   m_ObjectHideFlags: 0
@@ -686,7 +676,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 996691416}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 24384026}
+        m_MethodName: OnStartButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &996691416
@@ -1020,7 +1021,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1711563951}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 24384026}
+        m_MethodName: OnHighScoreButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1711563951
@@ -1209,7 +1221,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1854766970}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 24384026}
+        m_MethodName: OnQuitButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1854766970
